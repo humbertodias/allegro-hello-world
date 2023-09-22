@@ -8,7 +8,7 @@ CFLAGS="`allegro-config --cflags`"
 LIBS="`allegro-config --libs`"
 $CC main.cpp -o main $CFLAGS $LIBS
 */
-int main(void)
+int main(int argc, char **argv)
 {
     allegro_init();
     allegro_message("Hello World!");
