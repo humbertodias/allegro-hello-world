@@ -10,7 +10,7 @@ LIBS="`pkg-config --libs allegro-5 allegro_font-5`"
 $CXX main.cpp -o main $CFLAGS $LIBS
 */
 
-int main()
+int main(int argc, char **argv)
 {
     al_init();
     al_install_keyboard();
