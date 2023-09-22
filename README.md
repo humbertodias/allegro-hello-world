@@ -2,16 +2,19 @@
 
 Basic hello world program using allegro 4/5
 
-### Allegro 4
-https://www.allegro.cc/manual/4/
+### A4
 
 ```shell
 make a4-shell
 ```
 
-### Allegro 5
-https://www.allegro.cc/manual/5/system.html
+### A5
 
 ```shell
 make a5-shell
 ```
+
+## Manual
+
+* [Allegro 4](https://www.allegro.cc/manual/4)
+* [Allegro 5](https://www.allegro.cc/manual/5/system.html)
