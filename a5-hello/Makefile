@@ -3,8 +3,8 @@ libs:
 
 win:
 	$(eval CXX=i686-w64-mingw32-g++)
-	$(eval CFLAGS=`pkg-config --cflags allegro-5 allegro_main-5 allegro_font-5`)
-	$(eval LIBS=`pkg-config --libs allegro-5 allegro_main-5 allegro_font-5`)
+	$(eval CFLAGS=`i686-w64-mingw32-pkg-config --cflags allegro-5 allegro_main-5 allegro_font-5`)
+	$(eval LIBS=`i686-w64-mingw32-pkg-config --libs allegro-5 allegro_main-5 allegro_font-5`)
 	${CXX} main.cpp -o main.exe ${CFLAGS} ${LIBS}
 
 lin:

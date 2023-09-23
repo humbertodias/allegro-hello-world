@@ -3,8 +3,8 @@ libs:
 
 win:
 	$(eval CXX=i686-w64-mingw32-g++)
-	$(eval CFLAGS=`allegro-config --cppflags release` -I/usr/i686-linux-gnu/include)
-	$(eval LIBS=`allegro-config --libs release` -L/usr/lib/aarch64-linux-gnu)
+	$(eval CFLAGS=`allegro-config --cppflags release` -I/usr/i686-linux-gnu/include -I/usr/include/x86_64-linux-gnu)
+	$(eval LIBS=`allegro-config --libs release` -L/usr/lib/aarch64-linux-gnu -L/usr/lib/x86_64-linux-gnu)
 	${CXX} main.cpp -o main.exe ${CFLAGS} ${LIBS}
 
 lin:
