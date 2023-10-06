@@ -7,6 +7,12 @@ main
 .idea
 
 cmake-*
+CMakeFiles
+cmake_install.cmake
+CMakeCache.txt
+
 main.DSYM
 .DS_Store
 release*
+allegro.log
+main-*
