@@ -12,7 +12,7 @@ $CC main-win.cpp -o main-win --static `pkg-config --libs --cflags --static alleg
 #include <allegro.h>
 void init();
 void deinit();
-int main()
+int main(int, char **)
 {
     init();
     while (!key[KEY_ESC])
