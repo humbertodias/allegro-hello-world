@@ -4,13 +4,10 @@
 // https://www.allegro.cc/manual/5/system.html
 
 /**
-
+CXX=i686-w64-mingw32-g++
 CXX=clang++
 CXX=g++
-CXX=i686-w64-mingw32-g++
-CFLAGS="`pkg-config --cflags allegro-5 allegro_font-5`"
-LIBS="`pkg-config --libs allegro-5 allegro_main-5 allegro_font-5`"
-$CXX main.cpp -o main $CFLAGS $LIBS
+$CXX main-win.cpp -o main-win --static `pkg-config --static --cflags --libs allegro_monolith-static-5`
 */
 
 int main(int argc, char **argv) {

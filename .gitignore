@@ -8,3 +8,5 @@ main
 
 cmake-*
 main.DSYM
+.DS_Store
+release*
