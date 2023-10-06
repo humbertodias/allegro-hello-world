@@ -4,21 +4,23 @@
 // https://www.allegro.cc/manual/5/system.html
 
 /**
-CXX=i686-w64-mingw32-gcc
+
+CXX=clang++
+CXX=g++
+CXX=i686-w64-mingw32-g++
 CFLAGS="`pkg-config --cflags allegro-5 allegro_font-5`"
-LIBS="`pkg-config --libs allegro-5 allegro_font-5`"
+LIBS="`pkg-config --libs allegro-5 allegro_main-5 allegro_font-5`"
 $CXX main.cpp -o main $CFLAGS $LIBS
 */
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     al_init();
     al_install_keyboard();
 
-    ALLEGRO_TIMER* timer = al_create_timer(1.0 / 30.0);
-    ALLEGRO_EVENT_QUEUE* queue = al_create_event_queue();
-    ALLEGRO_DISPLAY* disp = al_create_display(320, 200);
-    ALLEGRO_FONT* font = al_create_builtin_font();
+    ALLEGRO_TIMER *timer = al_create_timer(1.0 / 30.0);
+    ALLEGRO_EVENT_QUEUE *queue = al_create_event_queue();
+    ALLEGRO_DISPLAY *disp = al_create_display(320, 200);
+    ALLEGRO_FONT *font = al_create_builtin_font();
 
     al_register_event_source(queue, al_get_keyboard_event_source());
     al_register_event_source(queue, al_get_timer_event_source(timer));
@@ -27,17 +29,22 @@ int main(int argc, char **argv)
     ALLEGRO_EVENT event;
 
     al_start_timer(timer);
-    while(1)
-    {
+    bool loop = true;
+    while (loop) {
+
         al_wait_for_event(queue, &event);
 
-        if(event.type == ALLEGRO_EVENT_TIMER)
-            redraw = true;
-        else if((event.type == ALLEGRO_EVENT_KEY_DOWN) || (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE))
-            break;
+        switch (event.type) {
+            case ALLEGRO_EVENT_TIMER:
+                redraw = true;
+                break;
+            case ALLEGRO_EVENT_KEY_DOWN:
+            case ALLEGRO_EVENT_DISPLAY_CLOSE:
+                loop = false;
+                break;
+        }
 
-        if(redraw && al_is_event_queue_empty(queue))
-        {
+        if (redraw && al_is_event_queue_empty(queue)) {
             al_clear_to_color(al_map_rgb(0, 0, 0));
             al_draw_text(font, al_map_rgb(255, 255, 255), 0, 0, 0, "Hello world!");
             al_flip_display();

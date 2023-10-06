@@ -4,3 +4,7 @@ build
 main
 
 .vscode
+.idea
+
+cmake-*
+main.DSYM
