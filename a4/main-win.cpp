@@ -15,10 +15,14 @@ void deinit();
 int main(int, char **)
 {
     init();
+
+    FONT *font = load_font("font_debug.pcx", NULL, NULL);
+
     while (!key[KEY_ESC])
     { /*Enquanto a tecla ESC não for pressionada, irá
 executar o código especificado */
         /* Código a ser executado */
+        textprintf_ex(screen, font, 0, 0, makecol(255, 100, 200), -1, "Hello world");
     }
     deinit();
     return 0;
@@ -54,11 +58,3 @@ void deinit()
     clear_keybuf(); /* Limpa o buffer do teclado */
     /* Outras possíveis desinicializações */
 }
-
-// int main(int argc, char **argv)
-// {
-//     allegro_init();
-//     allegro_message("Hello World!");
-//     return 0;
-// }
-// END_OF_MAIN()
