@@ -4,7 +4,6 @@
 ARCH=i686
 ARCH=aarch64
 TYPE=native
-DOCKERFILE=Dockerfile.musl
 
 archs:
 	curl https://musl.cc
@@ -31,12 +30,10 @@ build-a4:
 	cd a4 && docker build . \
 	--build-arg ARCH=${ARCH} \
 	--build-arg TYPE=${TYPE} \
-	-f ${DOCKERFILE} \
 	-t a4:${TYPE}-${ARCH}
 
 build-a5:
 	cd a5 && docker build . \
 	--build-arg ARCH=${ARCH} \
 	--build-arg TYPE=${TYPE} \
-	-f ${DOCKERFILE} \
 	-t a5:${TYPE}-${ARCH}
