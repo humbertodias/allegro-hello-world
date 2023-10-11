@@ -16,7 +16,7 @@ int main(int, char **)
 {
     init();
 
-    FONT *font = load_font("font_debug.pcx", NULL, NULL);
+    FONT *font = load_font("font_10.pcx", NULL, NULL);
 
     while (!key[KEY_ESC])
     { /*Enquanto a tecla ESC não for pressionada, irá
@@ -45,7 +45,7 @@ void init()
     res = set_gfx_mode(GFX_AUTODETECT_WINDOWED, 640, 480, 0, 0);
     if (res != 0)
     {
-        allegro_message(allegro_error); /* Exibe mensagem em caso de erro */
+        allegro_message("%s", allegro_error); /* Exibe mensagem em caso de erro */
         exit(-1);
     }
     install_timer();    /* Instala o handler de tempo da Allegro */
