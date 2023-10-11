@@ -1,16 +1,42 @@
-A4_VERSION=4.4.3.1
-A5_VERSION=5.2.8.0
+.PHONY: shell-a4, shell-a5
 
-a4-shell:
-	docker run --rm -v ${PWD}:/tmp/workdir \
-	-w /tmp/workdir \
-	-e CC=i686-w64-mingw32-gcc \
-	-e CXX=i686-w64-mingw32-g++ \
-	-ti hldtux/allegro-compiler:${A4_VERSION}-mingw-w64-i686
+#ARCH=$(shell uname -m)
+ARCH=i686
+ARCH=aarch64
+TYPE=native
+DOCKERFILE=Dockerfile.musl
 
-a5-shell:
-	docker run --rm -v ${PWD}:/tmp/workdir \
-	-w /tmp/workdir \
-	-e CC=i686-w64-mingw32-gcc \
-	-e CXX=i686-w64-mingw32-g++ \
-	-ti hldtux/allegro-compiler:${A5_VERSION}-mingw-w64-i686
+archs:
+	curl https://musl.cc
+
+shell-a4:	build-a4
+	docker run -it --rm -v ${PWD}/a4:/workdir \
+	-w /workdir \
+	-u `id -u`:`id -g` \
+	-e CC=gcc \
+	-e CXX=g++ \
+	a4:${TYPE}-${ARCH} \
+	bash
+
+shell-a5:	build-a5
+	docker run -it --rm -v ${PWD}/a5:/workdir \
+	-w /workdir \
+	-u `id -u`:`id -g` \
+	-e CC=gcc \
+	-e CXX=g++ \
+	a5:${TYPE}-${ARCH} \
+	bash
+
+build-a4:
+	cd a4 && docker build . \
+	--build-arg ARCH=${ARCH} \
+	--build-arg TYPE=${TYPE} \
+	-f ${DOCKERFILE} \
+	-t a4:${TYPE}-${ARCH}
+
+build-a5:
+	cd a5 && docker build . \
+	--build-arg ARCH=${ARCH} \
+	--build-arg TYPE=${TYPE} \
+	-f ${DOCKERFILE} \
+	-t a5:${TYPE}-${ARCH}
