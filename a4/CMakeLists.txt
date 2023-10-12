@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.14)
 project(main)
 
+set(CMAKE_VERBOSE_MAKEFILE ON)
+
 # Allegro 5
 include(FetchContent)
 FetchContent_Declare(
@@ -26,7 +28,9 @@ if(NOT allegro4_POPULATED)
     else()
         set(SHARED OFF)
     endif()
-    add_subdirectory(${allegro4_SOURCE_DIR} ${allegro4_BINARY_DIR} EXCLUDE_FROM_ALL)
+    set(MAGIC_MAIN ON)
+    set(STRICT_WARN OFF)
+    add_subdirectory(${allegro4_SOURCE_DIR} ${allegro4_BINARY_DIR})
 endif()
 
 # main code
@@ -42,15 +46,16 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 ${allegro5_SOURCE_DIR}/include ${allegro5_BINARY_DIR}/include
 ${allegro4_SOURCE_DIR}/include ${allegro4_BINARY_DIR}/include
 )
-# Link with dependencies
-target_link_libraries(${PROJECT_NAME} PRIVATE allegro)
 
-# These include files are typically copied into the correct places via allegro's install
-# target, but we do it manually.
-file(COPY ${allegro5_SOURCE_DIR}//misc/Allegro5_iOS/allegro5/platform/alplatf.h DESTINATION ${allegro4_SOURCE_DIR}/include/allegro5/platform)
-# Addons
-file(COPY ${allegro5_SOURCE_DIR}/addons/audio/allegro5/allegro_audio.h DESTINATION ${allegro4_SOURCE_DIR}/include/allegro5)
-file(COPY ${allegro5_SOURCE_DIR}/addons/font/allegro5/allegro_font.h DESTINATION ${allegro4_SOURCE_DIR}/include/allegro5)
-file(COPY ${allegro5_SOURCE_DIR}/addons/primitives/allegro5/allegro_primitives.h DESTINATION ${allegro4_SOURCE_DIR}/include/allegro5)
-file(COPY ${allegro5_SOURCE_DIR}/addons/image/allegro5/allegro_image.h DESTINATION ${allegro4_SOURCE_DIR}/include/allegro5)
-file(COPY ${allegro5_SOURCE_DIR}/addons/acodec/allegro5/allegro_acodec.h DESTINATION ${allegro4_SOURCE_DIR}/include/allegro5)
+# Link with dependencies
+target_link_libraries(${PROJECT_NAME} PRIVATE allegro -L${allegro4_BINARY_DIR}/lib)
+
+# # These include files are typically copied into the correct places via allegro's install
+# # target, but we do it manually.
+# file(COPY ${allegro5_SOURCE_DIR}/misc/Allegro5_iOS/allegro5/platform/alplatf.h DESTINATION ${allegro4_SOURCE_DIR}/include/allegro5/platform)
+# # Addons
+# file(COPY ${allegro5_SOURCE_DIR}/addons/audio/allegro5/allegro_audio.h DESTINATION ${allegro4_SOURCE_DIR}/include/allegro5)
+# file(COPY ${allegro5_SOURCE_DIR}/addons/font/allegro5/allegro_font.h DESTINATION ${allegro4_SOURCE_DIR}/include/allegro5)
+# file(COPY ${allegro5_SOURCE_DIR}/addons/primitives/allegro5/allegro_primitives.h DESTINATION ${allegro4_SOURCE_DIR}/include/allegro5)
+# file(COPY ${allegro5_SOURCE_DIR}/addons/image/allegro5/allegro_image.h DESTINATION ${allegro4_SOURCE_DIR}/include/allegro5)
+# file(COPY ${allegro5_SOURCE_DIR}/addons/acodec/allegro5/allegro_acodec.h DESTINATION ${allegro4_SOURCE_DIR}/include/allegro5)

@@ -7,13 +7,14 @@ $CC --static main-tty.cpp -o main-tty `pkg-config --libs --cflags --static alleg
 
 $CC main-tty.cpp -o main-tty `pkg-config --libs --cflags --static allegro`
 
+$CC main-tty.cpp -o main-tty -lalleg -L _deps/allegro4-build/lib
 */
-// #define ALLEGRO_NO_MAGIC_MAIN
+#define ALLEGRO_NO_MAGIC_MAIN
 #define ALLEGRO_STATICLINK
 #include <allegro.h>
 #include <stdio.h>
 
-int main(int, char **)
+int main(int argc, char **argv)
 {
 
     if (!allegro_init()) {
